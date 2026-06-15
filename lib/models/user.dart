@@ -12,6 +12,23 @@ class UserModel {
     required this.nrp,
   });
 
+  factory UserModel.fromFirestore(Map<String, dynamic> data, String id) {
+    return UserModel(
+      id: id,
+      email: data['email'] ?? '',
+      name: data['name'] ?? '',
+      nrp: data['nrp'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'email': email,
+      'name': name,
+      'nrp': nrp,
+    };
+  }
+
   // Salin objek dengan beberapa field baru jika diperlukan
   UserModel copyWith({
     String? id,

@@ -36,7 +36,7 @@ class MockAuthService {
     final nrp = RegExp(r'^\d+$').hasMatch(password) ? password : '5025211042';
 
     _currentUser = UserModel(
-      id: 'usr_${DateTime.now().millisecondsSinceEpoch}',
+      id: 'usr_${email.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '_')}',
       email: email,
       name: capitalizedName.isNotEmpty ? capitalizedName : 'Mahasiswa Akhir',
       nrp: nrp,

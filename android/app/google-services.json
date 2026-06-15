@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "608155639813",
+    "project_id": "fir-auth-basics-8892e",
+    "storage_bucket": "fir-auth-basics-8892e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608155639813:android:c1474127e017cfada57c6c",
+        "android_client_info": {
+          "package_name": "com.example.firebase_auth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjCsnzWE11Zb_OZO-kQmrR2Tm-ppXN0pQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608155639813:android:3d43bc95c8f48698a57c6c",
+        "android_client_info": {
+          "package_name": "com.example.rentalin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjCsnzWE11Zb_OZO-kQmrR2Tm-ppXN0pQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

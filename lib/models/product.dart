@@ -26,6 +26,33 @@ class ProductModel {
   bool get isFormalWear => category == 'Pakaian Formal';
   bool get isEquipment => category == 'Alat Presentasi/Dokumentasi';
 
+  factory ProductModel.fromFirestore(Map<String, dynamic> data, String id) {
+    return ProductModel(
+      id: id,
+      name: data['name'] ?? '',
+      category: data['category'] ?? '',
+      imageUrl: data['imageUrl'] ?? '',
+      pricePerDay: (data['pricePerDay'] as num).toDouble(),
+      description: data['description'] ?? '',
+      isAvailable: data['isAvailable'] ?? true,
+      sizeGuide: data['sizeGuide'] != null ? List<String>.from(data['sizeGuide']) : null,
+      specs: data['specs'] != null ? List<String>.from(data['specs']) : null,
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'name': name,
+      'category': category,
+      'imageUrl': imageUrl,
+      'pricePerDay': pricePerDay,
+      'description': description,
+      'isAvailable': isAvailable,
+      if (sizeGuide != null) 'sizeGuide': sizeGuide,
+      if (specs != null) 'specs': specs,
+    };
+  }
+
   // Salin objek dengan beberapa field baru jika diperlukan
   ProductModel copyWith({
     String? id,
