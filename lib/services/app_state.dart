@@ -285,6 +285,42 @@ class AppState extends ChangeNotifier {
     await _firestoreService.updateProductAvailability(productId, true);
   }
 
+  // Aksi Admin: Menambahkan barang sewa baru
+  Future<void> addProduct(ProductModel product) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _firestoreService.addProduct(product);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // Aksi Admin: Memperbarui data barang sewa yang ada
+  Future<void> updateProduct(ProductModel product) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _firestoreService.updateProduct(product);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // Aksi Admin: Menghapus barang sewa
+  Future<void> deleteProduct(String productId) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _firestoreService.deleteProduct(productId);
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
     _productsSubscription?.cancel();

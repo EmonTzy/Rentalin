@@ -73,6 +73,62 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  // Custom radio-style pilihan pengiriman (tanpa Radio widget deprecated)
+  Widget _buildDeliveryOption({
+    required String label,
+    required IconData icon,
+    required bool isSelected,
+    required Color themeColor,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? themeColor : Colors.grey.shade200,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            // Custom radio dot
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isSelected ? themeColor : Colors.grey.shade400,
+                  width: 2,
+                ),
+                color: isSelected ? themeColor : Colors.transparent,
+              ),
+              child: isSelected
+                  ? const Icon(Icons.check, color: Colors.white, size: 12)
+                  : null,
+            ),
+            const SizedBox(width: 12),
+            Icon(icon, color: isSelected ? themeColor : const Color(0xFF555555), size: 22),
+            const SizedBox(width: 10),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                color: isSelected ? themeColor : const Color(0xFF1E1E1E),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeColor = const Color(0xFD0D47A1);
@@ -150,7 +206,7 @@ class _CartScreenState extends State<CartScreen> {
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.02),
+                                  color: Colors.black.withValues(alpha: 0.02),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
@@ -255,87 +311,23 @@ class _CartScreenState extends State<CartScreen> {
                             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF1E1E1E)),
                           ),
                           const SizedBox(height: 12),
-                          // Radio Option 1: Diantar
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _deliveryType = 'Diantar ke Kos/Kampus';
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: _deliveryType == 'Diantar ke Kos/Kampus' ? themeColor : Colors.transparent,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Radio<String>(
-                                    value: 'Diantar ke Kos/Kampus',
-                                    groupValue: _deliveryType,
-                                    activeColor: themeColor,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _deliveryType = value!;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Icon(Icons.local_shipping_outlined, color: Color(0xFF555555)),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Diantar ke Kos/Kampus',
-                                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1E1E)),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          // Opsi 1: Diantar
+                          _buildDeliveryOption(
+                            label: 'Diantar ke Kos/Kampus',
+                            icon: Icons.local_shipping_outlined,
+                            isSelected: _deliveryType == 'Diantar ke Kos/Kampus',
+                            themeColor: themeColor,
+                            onTap: () => setState(() => _deliveryType = 'Diantar ke Kos/Kampus'),
                           ),
                           const SizedBox(height: 12),
 
-                          // Radio Option 2: Ambil Sendiri
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _deliveryType = 'Ambil Sendiri di Titik Surabaya';
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                  color: _deliveryType == 'Ambil Sendiri di Titik Surabaya' ? themeColor : Colors.transparent,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Radio<String>(
-                                    value: 'Ambil Sendiri di Titik Surabaya',
-                                    groupValue: _deliveryType,
-                                    activeColor: themeColor,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _deliveryType = value!;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Icon(Icons.storefront_rounded, color: Color(0xFF555555)),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Ambil Sendiri di Titik Surabaya',
-                                    style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1E1E)),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          // Opsi 2: Ambil Sendiri
+                          _buildDeliveryOption(
+                            label: 'Ambil Sendiri di Titik Surabaya',
+                            icon: Icons.storefront_rounded,
+                            isSelected: _deliveryType == 'Ambil Sendiri di Titik Surabaya',
+                            themeColor: themeColor,
+                            onTap: () => setState(() => _deliveryType = 'Ambil Sendiri di Titik Surabaya'),
                           ),
                           const SizedBox(height: 20),
 
@@ -414,44 +406,47 @@ class _CartScreenState extends State<CartScreen> {
                   ),
 
                   // Bottom Summary & Action
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
-                          blurRadius: 16,
-                          offset: const Offset(0, -6),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Total Pembayaran',
-                              style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
-                            ),
-                            Text(
-                              _formatRupiah(cartItem.totalPrice),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w900,
-                                color: Color(0xFF1E1E1E),
+                  SafeArea(
+                    top: false,
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.04),
+                            blurRadius: 16,
+                            offset: const Offset(0, -6),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total Pembayaran',
+                                style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        CustomButton(
-                          text: 'Lanjutkan Ke Konfirmasi',
-                          onPressed: _navigateToConfirmation,
-                        ),
-                      ],
+                              Text(
+                                _formatRupiah(cartItem.totalPrice),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF1E1E1E),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          CustomButton(
+                            text: 'Lanjutkan Ke Konfirmasi',
+                            onPressed: _navigateToConfirmation,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

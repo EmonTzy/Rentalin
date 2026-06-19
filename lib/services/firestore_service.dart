@@ -20,6 +20,18 @@ class FirestoreService {
     return _db.collection('products').doc(id).update({'isAvailable': isAvailable});
   }
 
+  Future<void> addProduct(ProductModel product) {
+    return _db.collection('products').doc(product.id).set(product.toFirestore());
+  }
+
+  Future<void> updateProduct(ProductModel product) {
+    return _db.collection('products').doc(product.id).update(product.toFirestore());
+  }
+
+  Future<void> deleteProduct(String id) {
+    return _db.collection('products').doc(id).delete();
+  }
+
   // Seeds the products collection on first run (does nothing if already populated)
   Future<void> seedProductsIfEmpty(List<ProductModel> defaults) async {
     final snapshot = await _db.collection('products').limit(1).get();

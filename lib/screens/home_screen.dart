@@ -3,6 +3,7 @@ import '../services/app_state.dart';
 import '../widgets/product_card.dart';
 import 'detail_screen.dart';
 import 'login_screen.dart';
+import 'admin_dashboard_screen.dart';
 
 // Dasbor Katalog Utama Rentalin
 class HomeScreen extends StatefulWidget {
@@ -113,11 +114,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ],
                               ),
-                              // Tombol Logout
-                              IconButton(
-                                icon: const Icon(Icons.logout_rounded, color: Colors.redAccent),
-                                tooltip: 'Keluar',
-                                onPressed: () => _handleLogout(context),
+                              // Tombol Aksi (Admin & Logout)
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.admin_panel_settings_rounded, color: Color(0xFD0D47A1)),
+                                    tooltip: 'Admin Dashboard',
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => const AdminDashboardScreen(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.logout_rounded, color: Colors.redAccent),
+                                    tooltip: 'Keluar',
+                                    onPressed: () => _handleLogout(context),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

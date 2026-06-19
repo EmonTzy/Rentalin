@@ -394,45 +394,48 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           ),
 
           // Bottom Bar untuk Total & Konfirmasi Selesai
-          Container(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  blurRadius: 16,
-                  offset: const Offset(0, -6),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total Tagihan',
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
-                    ),
-                    Text(
-                      _formatRupiah(cartItem.totalPrice),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF1E1E1E),
+          SafeArea(
+            top: false,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 16,
+                    offset: const Offset(0, -6),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total Tagihan',
+                        style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                CustomButton(
-                  text: 'Konfirmasi & Sewa Sekarang',
-                  isLoading: _isLoading,
-                  onPressed: _isAgreementChecked ? _handleConfirmOrder : null,
-                ),
-              ],
+                      Text(
+                        _formatRupiah(cartItem.totalPrice),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xFF1E1E1E),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  CustomButton(
+                    text: 'Konfirmasi & Sewa Sekarang',
+                    isLoading: _isLoading,
+                    onPressed: _isAgreementChecked ? _handleConfirmOrder : null,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
